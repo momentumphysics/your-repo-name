@@ -1,58 +1,50 @@
 const express = require('express');
 const path = require('path');
-const app = express();
+const cors = require('cors');
+const sqlite3 = require('sqlite3').verbose();
 
-app.use(express.urlencoded({ extended: true }));
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// 1. Middleware
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// 2. Sajikan folder "public" sebagai file statis
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Home Page
+// 3. Inisialisasi Database SQLite
+const db = new sqlite3.Database(path.join(__dirname, 'app_data.db'), (err) => {
+  if (err) {
+    console.error('Koneksi Database Gagal:', err.message);
+  } else {
+    console.log('Terhubung ke database SQLite.');
+  }
+});
+
+// 4. API Endpoints (Gunakan prefix /api/)
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', message: 'Backend aktif dan terhubung' });
+});
+
+// Contoh Endpoint Ambil Data
+app.get('/api/data', (req, res) => {
+  db.all('SELECT * FROM users', [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json(rows);
+  });
+});
+
+// 5. Routing Halaman Utama
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// 1. Region / Verification Locate Page
-app.get('/verificationlocate', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'verificationlocate.html'));
+// 6. Jalankan Server
+app.listen(PORT, () => {
+  console.log(`Server berjalan di http://localhost:${PORT}`);
 });
-
-app.post('/api/locate', (req, res) => {
-  const { region } = req.body;
-  // Save region data to SQLite / DB here if needed
-  res.redirect('/birthday');
-});
-
-// 2. Birthday Page
-app.get('/birthday', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'birthday.html'));
-});
-
-app.post('/api/birthday', (req, res) => {
-  const { birthdate } = req.body;
-  // Save birthdate data to DB here if needed
-  res.redirect('/newemail');
-});
-
-// 3. New Email (No Password) Page
-app.get('/newemail', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'newemail.html'));
-});
-
-app.post('/api/newemail', (req, res) => {
-  const { newEmail } = req.body;
-  // Save new email to DB here if needed
-  res.redirect('/pending');
-});
-
-// 4. Dummy Status Page
-app.get('/pending', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'pending.html'));
-});
-
-// Fallback / Start
-app.get('/', (req, res) => {
-  res.redirect('/verificationlocate');
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

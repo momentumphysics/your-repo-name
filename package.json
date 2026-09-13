@@ -9,8 +9,9 @@
     "start": "node server.cjs"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "cors": "^2.8.6",
+    "express": "^4.22.2",
+    "sqlite3": "^6.0.1"
   },
   "devDependencies": {
     "vite": "^8.3.0"
