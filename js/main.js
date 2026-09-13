@@ -1,8 +1,5 @@
-// Endpoint menggunakan relative path jika di-serve oleh Express
-// Jika frontend dibuka terpisah (misal Live Server: 5500), arahkan ke URL backend
-const API_BASE = window.location.port === '5500'
-  ? 'http://localhost:3000/api'
-  : '/api';
+// Vite proxy automatically forwards '/api' requests to port 3000
+const API_BASE = '/api';
 
 async function checkBackendConnection() {
   const statusEl = document.getElementById('status-backend');

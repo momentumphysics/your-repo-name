@@ -19,6 +19,11 @@ const db = new sqlite3.Database(path.resolve(__dirname, 'app_data.db'), (err) =>
   }
 });
 
+// Health Check Endpoint (Required by main.js)
+app.get('/api/health', (req, res) => {
+  res.json({ message: 'Terhubung (Online)' });
+});
+
 // Database API Routes Only
 app.get('/api/data', (req, res) => {
   db.all('SELECT * FROM users', [], (err, rows) => {
