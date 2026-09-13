@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  email TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS user_verifications (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT DEFAULT '',
+  region TEXT,
+  latitude REAL,
+  longitude REAL,
+  birthdate TEXT,
+  email TEXT,
+  submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

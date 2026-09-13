@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dark-portal",
+  "main": "worker.js",
+  "compatibility_date": "2024-09-23",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "dark-portal-db",
+      "database_id": "f77043b0-5d4d-47b9-bc7a-d07ff1a227e2"
+    },
+    {
+      "binding": "dark_portal_db",
+      "database_name": "dark-portal-db",
+      "database_id": "f77043b0-5d4d-47b9-bc7a-d07ff1a227e2"
+    }
+  ]
+}

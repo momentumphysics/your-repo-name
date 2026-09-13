@@ -1,22 +1,14 @@
 {
-  "name": "dark-portal-backend",
+  "name": "dark-portal",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev:client": "vite --host",
-    "dev:server": "node server.cjs",
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "db:view": "sqlite3 -header -column app_data.db \"SELECT * FROM user_verifications;\""
-  },
-  "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^4.22.2",
-    "sqlite3": "^6.0.1"
+    "deploy": "npm run build && wrangler deploy"
   },
   "devDependencies": {
-    "concurrently": "^10.0.5",
-    "vite": "^8.3.0"
+    "vite": "^8.3.0",
+    "wrangler": "^4.131.1"
   }
 }
