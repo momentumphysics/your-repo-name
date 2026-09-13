@@ -1,3 +1,5 @@
+import './style.css';
+
 // State navigasi wizard
 const steps = {
   1: document.getElementById('step-1'),

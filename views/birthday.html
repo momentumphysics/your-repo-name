@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Birthday Verification</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="card">
+    <h2>Confirm Your Birthday</h2>
+    <form action="/api/birthday" method="POST">
+      <label for="birthdate">Date of Birth:</label>
+      <input type="date" id="birthdate" name="birthdate" required />
+      <button type="submit">Continue</button>
+    </form>
+  </div>
+</body>
+</html>
