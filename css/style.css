@@ -2,12 +2,13 @@
   --bg-dark: #111216;
   --bg-card: #222428;
   --bg-input: #111216;
-  --bg-banner: #17181c;
+  --bg-banner: #15171b;
   --border-subtle: #23252a;
   --border-card: #2b2d33;
-  --border-input: #393b42;
+  --border-input: #383a40;
   --primary-blue: #3977ff;
-  --primary-hover: #2e68ea;
+  --primary-btn: #2f54c6;
+  --primary-hover: #3b65cf;
   --btn-disabled-bg: #25396d;
   --btn-disabled-text: #6d7fae;
   --text-light: #ffffff;
@@ -31,24 +32,28 @@ body {
   flex-direction: column;
   justify-content: space-between;
   -webkit-font-smoothing: antialiased;
-  user-select: none;
 }
 
-/* HEADER NAVIGATION */
-.site-header {
+/* TOP ROBLOX HEADER */
+.roblox-header {
   background-color: var(--bg-dark);
   border-bottom: 1px solid var(--border-subtle);
-  padding: 12px 16px 10px;
+  width: 100%;
 }
 
-.header-top {
+.header-main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  padding: 12px 18px 8px;
 }
 
-.logo-link {
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.roblox-logo {
   color: var(--text-light);
   display: flex;
   align-items: center;
@@ -56,20 +61,20 @@ body {
   transition: opacity 0.2s ease;
 }
 
-.logo-link:hover {
-  opacity: 0.8;
+.roblox-logo:hover {
+  opacity: 0.85;
 }
 
-.header-actions {
+.header-right {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.btn-signup-nav {
+.btn-signup {
   background-color: var(--primary-blue);
   color: var(--text-light);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   padding: 6px 16px;
   border-radius: 9999px;
@@ -78,136 +83,179 @@ body {
   transition: background-color 0.2s ease;
 }
 
-.btn-signup-nav:hover {
+.btn-signup:hover {
   background-color: var(--primary-hover);
 }
 
-.btn-icon-search {
+.btn-search {
   background: transparent;
   border: none;
   color: var(--text-light);
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 4px;
   transition: color 0.2s ease;
 }
 
-.btn-icon-search:hover {
+.btn-search:hover {
   color: var(--text-muted);
 }
 
-.header-nav {
+/* SUB NAVIGATION (Charts, Marketplace, Create, Robux) */
+.sub-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 380px;
-  padding: 0 8px;
+  padding: 8px 24px 12px;
+  max-width: 480px;
 }
 
-.header-nav a {
-  color: #d1d5db;
+.sub-nav a {
+  color: var(--text-light);
   text-decoration: none;
   font-size: 13px;
   font-weight: 600;
-  transition: color 0.2s ease;
+  transition: opacity 0.2s ease;
+  opacity: 0.9;
 }
 
-.header-nav a:hover {
-  color: var(--text-light);
+.sub-nav a:hover {
+  opacity: 1;
 }
 
-/* MAIN CONTENT & CARD */
+/* MAIN CONTAINER & CARD */
 .main-container {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px 16px;
+  padding: 24px 16px;
+  width: 100%;
 }
 
+.card,
 .card-panel {
   width: 100%;
-  max-width: 420px;
+  max-width: 380px;
   background-color: var(--bg-card);
   border: 1px solid var(--border-card);
   border-radius: 12px;
   padding: 28px 24px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  margin: auto;
 }
 
-.card-title {
+.card-title,
+.card h1,
+.card h2 {
   text-align: center;
   color: var(--text-light);
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
+  letter-spacing: -0.2px;
 }
 
-.card-subtitle {
-  font-size: 12px;
+.card-subtitle,
+.card p {
+  font-size: 13px;
   color: var(--text-muted);
   text-align: center;
-  margin-bottom: 24px;
-  line-height: 1.5;
+  margin-bottom: 20px;
+  line-height: 1.45;
 }
 
 /* FORM ELEMENTS */
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  text-align: left;
 }
 
-.form-label {
+.form-label,
+label,
+.card label {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  color: #d1d5db;
+  color: #cfd3d8;
   margin-bottom: 8px;
+  text-align: left;
 }
 
-.form-input {
+.form-input,
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="password"],
+.card input {
   width: 100%;
   background-color: var(--bg-input);
   color: var(--text-light);
   font-size: 14px;
   border-radius: 8px;
-  padding: 12px 14px;
+  padding: 13px 14px;
   border: 1px solid var(--border-input);
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
 }
 
-.form-input:focus {
+.form-input:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+.card input:focus {
   border-color: var(--primary-blue);
+  box-shadow: 0 0 0 2px rgba(57, 119, 255, 0.25);
 }
 
-.form-input::placeholder {
-  color: var(--text-dim);
+.form-input::placeholder,
+input::placeholder {
+  color: #7e848d;
+  font-size: 14px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
 }
 
 /* BUTTONS */
-.btn-primary {
+.btn-primary,
+.card button,
+button[type="submit"],
+.btn-action {
   width: 100%;
-  padding: 12px;
+  padding: 13px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   border: none;
   transition: all 0.2s ease;
-  margin-top: 8px;
-  background-color: var(--primary-blue);
+  background-color: var(--primary-btn);
   color: var(--text-light);
   cursor: pointer;
+  font-family: inherit;
+  display: block;
+  text-align: center;
+  text-decoration: none;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.card button:hover,
+button[type="submit"]:hover,
+.btn-action:hover {
   background-color: var(--primary-hover);
 }
 
-.btn-disabled {
+.btn-disabled,
+button:disabled {
   background-color: var(--btn-disabled-bg) !important;
   color: var(--btn-disabled-text) !important;
   cursor: not-allowed !important;
+  opacity: 0.85;
 }
 
 .btn-ghost {
@@ -221,24 +269,66 @@ body {
   color: var(--text-muted);
   cursor: pointer;
   transition: color 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
 .btn-ghost:hover {
   color: var(--text-light);
 }
 
-.status-box {
+/* LOCATION VERIFICATION BOX */
+.location-box {
   background-color: var(--bg-input);
   border: 1px solid var(--border-input);
   border-radius: 8px;
-  padding: 16px;
+  padding: 20px 16px;
   text-align: center;
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.location-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  background-color: rgba(57, 119, 255, 0.15);
+  color: var(--primary-blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+
+.location-icon-wrapper.success {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.location-icon-wrapper.error {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.location-status-text {
+  font-size: 13px;
+  color: #d1d5db;
+  line-height: 1.5;
+}
+
+.location-status-text.error {
+  color: #f87171;
+}
+
+.location-status-text.success {
+  color: #4ade80;
 }
 
 /* SUCCESS / UTILITIES */
+.text-center {
+  text-align: center !important;
+}
+
 .hidden {
   display: none !important;
 }
@@ -255,42 +345,25 @@ body {
   margin: 0 auto 16px;
 }
 
-.btn-restart {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #2b2d33;
-  color: var(--text-light);
-  border: none;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.btn-restart:hover {
-  background-color: #393b42;
-}
-
 /* BOTTOM APP BANNER */
-.bottom-banner {
-  width: 100%;
+.app-banner {
   background-color: var(--bg-banner);
   border-top: 1px solid var(--border-card);
   padding: 10px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 50;
+  gap: 10px;
+  z-index: 100;
+  position: sticky;
+  bottom: 0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(35, 38, 45, 0.6) 0%, transparent 60%),
+                    linear-gradient(135deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
+                    linear-gradient(225deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%);
+  background-size: 100% 100%, 20px 20px, 20px 20px;
 }
 
-.banner-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.btn-banner-close {
+.banner-close {
   background: transparent;
   border: none;
   color: var(--text-muted);
@@ -298,17 +371,19 @@ body {
   padding: 4px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.btn-banner-close:hover {
+.banner-close:hover {
   color: var(--text-light);
 }
 
 .banner-icon {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 10px;
-  background-color: var(--primary-blue);
+  background-color: #1169fe;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -318,44 +393,42 @@ body {
 .banner-text {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  margin: 0 4px;
+  min-width: 0;
 }
 
 .banner-title {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-light);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.banner-desc {
+.banner-subtitle {
   font-size: 11px;
   color: var(--text-muted);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.btn-banner-action {
+.btn-visit {
   background-color: var(--primary-blue);
   color: var(--text-light);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  padding: 6px 16px;
+  padding: 6px 18px;
   border-radius: 9999px;
   text-decoration: none;
+  flex-shrink: 0;
   transition: background-color 0.2s ease;
 }
 
-.btn-banner-action:hover {
+.btn-visit:hover {
   background-color: var(--primary-hover);
-}
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #0070f3;
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
-}
-
-.btn:hover {
-  background-color: #0051bb;
 }

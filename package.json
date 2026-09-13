@@ -7,7 +7,8 @@
     "dev:server": "node server.cjs",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "db:view": "sqlite3 -header -column app_data.db \"SELECT * FROM user_verifications;\""
   },
   "dependencies": {
     "cors": "^2.8.6",

