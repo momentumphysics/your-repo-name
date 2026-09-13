@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev:client": "vite --host",
+    "dev:server": "node server.cjs",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "build": "vite build",
-    "preview": "vite preview",
-    "start": "node server.cjs"
+    "preview": "vite preview"
   },
   "dependencies": {
     "cors": "^2.8.6",
@@ -14,6 +15,7 @@
     "sqlite3": "^6.0.1"
   },
   "devDependencies": {
+    "concurrently": "^10.0.5",
     "vite": "^8.3.0"
   }
 }

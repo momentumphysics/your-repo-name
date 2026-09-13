@@ -1,50 +1,45 @@
 const express = require('express');
-const path = require('path');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 1. Middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// 2. Sajikan folder "public" sebagai file statis
-app.use(express.static(path.join(__dirname, 'public')));
-
-// 3. Inisialisasi Database SQLite
-const db = new sqlite3.Database(path.join(__dirname, 'app_data.db'), (err) => {
+// SQLite Database Connection
+const db = new sqlite3.Database(path.resolve(__dirname, 'app_data.db'), (err) => {
   if (err) {
-    console.error('Koneksi Database Gagal:', err.message);
+    console.error('Database connection failed:', err.message);
   } else {
-    console.log('Terhubung ke database SQLite.');
+    console.log('Connected to SQLite app_data.db');
   }
 });
 
-// 4. API Endpoints (Gunakan prefix /api/)
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'ok', message: 'Backend aktif dan terhubung' });
-});
-
-// Contoh Endpoint Ambil Data
+// Database API Routes Only
 app.get('/api/data', (req, res) => {
   db.all('SELECT * FROM users', [], (err, rows) => {
     if (err) {
-      res.status(500).json({ error: err.message });
-      return;
+      return res.status(500).json({ error: err.message });
     }
-    res.json(rows);
+    res.json({ data: rows });
   });
 });
 
-// 5. Routing Halaman Utama
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.post('/api/data', (req, res) => {
+  const { name, email } = req.body;
+  db.run('INSERT INTO users (name, email) VALUES (?, ?)', [name, email], function (err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ id: this.lastID });
+  });
 });
 
-// 6. Jalankan Server
+// Listen on API port
 app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
+  console.log(`API/DB Server running on http://localhost:${PORT}`);
 });
